@@ -1,0 +1,12 @@
+body {
+  background-color: #101010;
+}
+
+
+.kotak-meja {
+  background: #ffffff;
+  padding: 20px;
+  border: 1px solid #d4c5a9;
+  margin: 30px auto;
+  border-radius: 8px;
+}
