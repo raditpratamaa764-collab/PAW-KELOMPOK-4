@@ -1,12 +1,67 @@
 body {
-  background-color: #101010;
+  background-color: #252525;
+  
 }
 
 
 .kotak-meja {
-  background: #ffffff;
+  background: #fafafa;
   padding: 20px;
   border: 1px solid #d4c5a9;
   margin: 30px auto;
   border-radius: 8px;
+}
+
+.area-input {
+  background: #252525;
+  padding: 20px;
+  border: 1px ;
+  margin: 30px auto;
+  border-radius: 8px;
+}
+
+.submit{
+  margin-top: 32px;
+  display: flex;
+  gap: 8px;
+}
+
+.status{
+  margin-top: 24px;
+}
+
+.area{
+  margin-top:24px;
+}
+
+.kapasitas{
+  margin-top:32px;
+}
+
+.heading{
+  font-size:32px;
+  font-weight:bold;
+}
+
+.navbar{
+  background-color: #212121;
+  color: white;
+}
+
+.table{
+  border-radius: 8px;
+  overflow: hidden;
+  vertical-align: middle;
+  
+}
+
+.btn-gold{
+  color: black;
+  background-color: gold;
+  border-radius: 8px;
+  font-weight:bold;
+  font-size: 16px;
+}
+.btn-gold:hover {
+  background-color: #e6b800; 
 }

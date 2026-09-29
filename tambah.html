@@ -9,49 +9,54 @@
 </head>
 <body>
     <!-- NAVBAR -->
-    <div class="navbar navbar-dark" style="background-color: #212121;">
+    <div class="navbar navbar-dark">
         <div class="container">
             <a class="navbar-brand fw-bold" href="index.html">Restoran Kelompok 4</a>
         </div>
     </div>
 
     <div class="container" style="color:white">
-        <div class="kotak_meja" style="max-width: 550px">
-            <h4 class="mb-3">Tambah Master Meja</h4>
+        <div class="area-input" style="max-width: 550px">
+            <h4 class="heading">Tambah Master Meja</h4>
 
             <form action="#" method="POST">
 
                 <!-- Kapasitas -->
-                <div class="mb-3">
+                <div class="kapasitas">
                     <label class="form-label">Kapasitas Kursi</label>
                     <select class="form-select" name="Kapasitas" required>
                         <option value="" disabled selected>Pilih Kapasitas Kursi</option>\
                         <option value="4">4 Kursi</option>
+                        <option value="2">2 Kursi</option>
+                        <option value="6">6 Kursi</option>
                     </select>
                 </div>
 
                 <!-- Area -->
-                <div class="mb-3">
-                    <label class="form-label d-block">area</label>
-                    <div class="form-check-inline">
+                <div class="area">
+                    <label class="form-label d-block">Area</label>
+                    <div class="form-check-inline" style="display: flex; gap: 10px;">
                         <input class="form-check-input" type="radio" name="area" id="zona1" value="indoor" checked>
                         <label class="form-check-label" for="zona1">Indoor</label>
                         <input class="form-check-input" type="radio" name="area" id="zona2" value="outdoor" checked>
                         <label class="form-check-label" for="zona2">Outdoor</label>
+                        <input class="form-check-input" type="radio" name="area" id="zona3" value="VIP" checked>
+                        <label class="form-check-label" for="zona3">VIP</label>
                     </div>
                 </div>
 
                 <!-- Status -->
-                 <div class="mb-3">
+                 <div class="status">
                     <label class="form-label">Status Meja</label>
                     <select class="form-select" name="status" required>
                         <option value="Tersedia">Tersedia</option>
-                        <option value="Tersedia">Penuh</option>
+                        <option value="Tidak Tersedia">Tidak Tersedia</option>
+                        <option value="Penuh">Penuh</option>
                     </select>
                  </div>
 
                  <!-- Aksi -->
-                  <div class="d-flex gap-2">
+                  <div class="submit">
                     <button type="submit" class="btn btn-success">Simpan Meja</button>
                     <a href="index.html" class="btn btn-secondary">Batal</a>
                   </div>
