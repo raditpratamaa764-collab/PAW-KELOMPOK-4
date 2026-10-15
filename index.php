@@ -5,8 +5,6 @@ $result = mysqli_query($koneksi, "SELECT * FROM Data_Meja");
 
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,6 +38,7 @@ $result = mysqli_query($koneksi, "SELECT * FROM Data_Meja");
                         <th>Kapasitas</th>
                         <th>Area</th>
                         <th>Status</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
 
@@ -52,6 +51,10 @@ $result = mysqli_query($koneksi, "SELECT * FROM Data_Meja");
                         <td><?= htmlspecialchars($meja['Area']); ?></td>
                         <td>
                             <span class="badge bg-success"><?= htmlspecialchars($meja['Status']); ?></span>
+                        </td>
+                        <td>
+                            <a href="edit.php?id=<?= $meja['Nomor_Meja']; ?>" class="btn btn-warning btn-sm ">Edit</a>
+                            <a href="hapus.php?id=<?= $meja['Nomor_Meja']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus meja ini?')">Hapus</a>
                         </td>
                         </tr>
                     <?php endwhile; ?>
