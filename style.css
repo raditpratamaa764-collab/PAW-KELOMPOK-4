@@ -1,0 +1,55 @@
+body {
+    background-color: #f4f6f9;
+    color: #212529;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background-color: #172554 !important;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+h2 {
+    color: #172554;
+    font-weight: bold;
+}
+
+.table {
+    background-color: white;
+    vertical-align: middle;
+}
+
+.table th {
+    text-align: center;
+    white-space: nowrap;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+form {
+    max-width: 800px;
+}
+
+.btn {
+    border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+}
