@@ -1,50 +1,28 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MenuController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TambahController;
+use Illuminate\Support\Facades\Route;
 
-// Halaman utama
-Route::get('/', function () {
-    return redirect()->route('menu.daftar');
-})->name('home');
-
-// Route login hanya untuk Guest
+// Hanya guest (yang sudah login dialihkan ke '/')
 Route::middleware('guest')->group(function () {
-    Route::get('/login', [AuthController::class, 'showLogin'])
-        ->name('login');
-
-    Route::post('/login', [AuthController::class, 'login'])
-        ->name('login.process');
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.proses');
 });
 
-// Route logout
-Route::post('/logout', [AuthController::class, 'logout'])
-    ->middleware('auth')
-    ->name('logout');
+// Harus login (guest otomatis dialihkan ke /login)
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Route untuk Staff dan Admin
-Route::middleware(['auth', 'role:staff,admin'])->group(function () {
+    // User & Admin boleh melihat daftar
+    Route::get('/', [TambahController::class, 'index'])->name('tambah.index');
 
-    Route::get('/daftar-menu', [MenuController::class, 'daftar'])
-        ->name('menu.daftar');
-
-    Route::get('/menu/tambah', [MenuController::class, 'tambah'])
-        ->name('menu.tambah');
-
-    Route::post('/menu/tambah', [MenuController::class, 'store'])
-        ->name('menu.store');
-});
-
-// Route khusus Admin menggunakan Middleware dan Gate
-Route::middleware(['auth', 'role:admin', 'can:manage-menu'])->group(function () {
-
-    Route::get('/menu/edit/{id}', [MenuController::class, 'edit'])
-        ->name('menu.edit');
-
-    Route::put('/menu/edit/{id}', [MenuController::class, 'update'])
-        ->name('menu.update');
-
-    Route::delete('/menu/hapus/{id}', [MenuController::class, 'hapus'])
-        ->name('menu.hapus');
+    // Hanya admin
+    Route::middleware('role:admin')->group(function () {
+        Route::get('/daftar-tambah', [TambahController::class, 'daftar'])->name('tambah.daftar');
+        Route::post('/tambah', [TambahController::class, 'store'])->name('tambah.store');
+        Route::get('/tambah/{tambah}/edit', [TambahController::class, 'edit'])->name('tambah.edit');
+        Route::put('/tambah/{tambah}', [TambahController::class, 'update'])->name('tambah.update');
+        Route::delete('/tambah/{tambah}', [TambahController::class, 'destroy'])->name('tambah.destroy');
+    });
 });

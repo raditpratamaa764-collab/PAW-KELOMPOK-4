@@ -4,6 +4,7 @@ use App\Http\Middleware\EnsureUserHasRole;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -16,8 +17,13 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => EnsureUserHasRole::class,
         ]);
 
-        $middleware->redirectGuestsTo('/login');
+        $middleware->redirectGuestsTo(function (Request $request) {
+            session()->flash('error', 'Silakan login terlebih dahulu untuk mengakses halaman ini.');
+            return route('login');
+        });
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->shouldRenderJsonWhen(
+            fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
+        );
     })->create();

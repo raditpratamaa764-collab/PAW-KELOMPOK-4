@@ -8,20 +8,19 @@ use Symfony\Component\HttpFoundation\Response;
 
 class EnsureUserHasRole
 {
+    /**
+     * Handle an incoming request.
+     *
+     * @param  Closure(Request): (Response)  $next
+     */
     public function handle(Request $request, Closure $next, string ...$roles): Response
-    {
-        $user = $request->user();
+{
+    $user = $request->user();
 
-        // Jika belum login, arahkan ke halaman login
-        if (! $user) {
-            return redirect()->route('login');
-        }
-
-        // Jika role tidak sesuai, tolak akses
-        if (! $user->hasRole(...$roles)) {
-            abort(403, 'Anda tidak memiliki hak akses.');
-        }
-
-        return $next($request);
+    if (! $user || ! in_array($user->role, $roles, true)) {
+        abort(403, 'Kamu tidak punya akses ke halaman ini.');
     }
+
+    return $next($request);
+}
 }
