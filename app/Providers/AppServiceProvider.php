@@ -2,10 +2,9 @@
 
 namespace App\Providers;
 
-use App\Models\Menu;
-use App\Policies\MenuPolicy;
-use Illuminate\Support\ServiceProvider;
+use App\Models\User;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,14 +13,11 @@ class AppServiceProvider extends ServiceProvider
         //
     }
 
+    /**
+     * Bootstrap any application services.
+     */
     public function boot(): void
     {
-        // Mendaftarkan MenuPolicy
-        Gate::policy(Menu::class, MenuPolicy::class);
-
-        // Authorization Gate untuk Admin
-        Gate::define('manage-menu', function ($user) {
-            return $user->hasRole('admin');
-        });
+        Gate::define('tambah-meja', fn(User $user) => $user->hasRole('admin'));
     }
 }

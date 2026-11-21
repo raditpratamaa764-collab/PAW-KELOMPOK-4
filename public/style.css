@@ -1,0 +1,69 @@
+body {
+    background-color: #cfd6de;
+    color: #1c1c1c;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar {
+    background-color: #212121 !important;
+    color: #ffffff;
+    border-bottom: none;
+    padding-top: 22px !important;
+    padding-bottom: 22px !important;
+    min-height: 76px;
+}
+
+.navbar-brand {
+    color: #ffffff;
+    font-size: 1.3rem;
+    letter-spacing: 0.4px;
+}
+.kotak-meja,
+.area-input,
+.card-custom {
+    background-color: #ffffff;
+    padding: 24px;
+    border: 1px solid #bcc6d1;
+    margin: 30px auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(28, 28, 28, 0.08);
+}
+
+.heading {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1c1c1c;
+}
+
+.table {
+    border-radius: 8px;
+    overflow: hidden;
+    vertical-align: middle;
+    background-color: #ffffff;
+}
+
+.table thead th {
+    background-color: #26292e;
+    color: #ffffff;
+    border-color: #34383f;
+    font-weight: 600;
+}
+
+
+.btn-gold {
+    color: #18181b;
+    background-color: #f0be3b;
+    border: 1px solid #e0ad2b;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn-gold:hover,
+.btn-gold:focus {
+    color: #18181b;
+    background-color: #f6cb56;
+    border-color: #e0ad2b;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(240, 190, 59, 0.35);
+}

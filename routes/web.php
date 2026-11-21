@@ -1,50 +1,55 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MenuController;
+use App\Http\Controllers\MejaController;
 use App\Http\Controllers\AuthController;
 
-// Halaman utama
-Route::get('/', function () {
-    return redirect()->route('menu.daftar');
-})->name('home');
 
-// Route login hanya untuk Guest
-Route::middleware('guest')->group(function () {
-    Route::get('/login', [AuthController::class, 'showLogin'])
-        ->name('login');
+Route::get('/', [MejaController::class, 'index']);
+Route::get('/meja', [MejaController::class, 'index'])->name('meja.index');
 
-    Route::post('/login', [AuthController::class, 'login'])
-        ->name('login.process');
+Route::middleware('guest')->group(function (){
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.proses');
 });
 
-// Route logout
-Route::post('/logout', [AuthController::class, 'logout'])
-    ->middleware('auth')
-    ->name('logout');
 
-// Route untuk Staff dan Admin
-Route::middleware(['auth', 'role:staff,admin'])->group(function () {
+Route::middleware('auth')->group(function(){
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    Route::get('/daftar-menu', [MenuController::class, 'daftar'])
-        ->name('menu.daftar');
+    Route::get('/meja/tambah', [MejaController::class, 'create'])
+        ->can('tambah-meja')
+        ->name('meja.create');
 
-    Route::get('/menu/tambah', [MenuController::class, 'tambah'])
-        ->name('menu.tambah');
+    Route::post('/meja', [MejaController::class, 'store'])
+        ->middleware('role:admin')
+        ->name('meja.store');
 
-    Route::post('/menu/tambah', [MenuController::class, 'store'])
-        ->name('menu.store');
+    Route::middleware('role:admin,staff')->group(function(){
+        Route::get('/meja/{meja}/edit', [MejaController::class, 'edit'])
+            ->name('meja.edit')
+            ->can('update', 'meja');
+            
+        Route::put('/meja/{meja}', [MejaController::class, 'update'])
+            ->name('meja.update')
+            ->can('update', 'meja');
+    });
+
+    Route::delete('/meja/{meja', [MejaController::class, 'destroy'])
+        ->name('meja.destroy')
+        ->middleware('role:admin')
+        ->can('delete', 'meja');
 });
 
-// Route khusus Admin menggunakan Middleware dan Gate
-Route::middleware(['auth', 'role:admin', 'can:manage-menu'])->group(function () {
 
-    Route::get('/menu/edit/{id}', [MenuController::class, 'edit'])
-        ->name('menu.edit');
 
-    Route::put('/menu/edit/{id}', [MenuController::class, 'update'])
-        ->name('menu.update');
 
-    Route::delete('/menu/hapus/{id}', [MenuController::class, 'hapus'])
-        ->name('menu.hapus');
-});
+Route::get('/tes-koneksi', function () {
+    try {
+        DB::connection()->getPdo();
+        return "DB berhasil connect!";
+    } catch (\Exception $e) {
+        return 'DB gagal connect: ' . $e->getMessage();
+    }
+})->withoutMiddleware('web');
